@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5653330507460858273}
   - component: {fileID: 7200194651285741971}
   - component: {fileID: 8990113720237982380}
-  - component: {fileID: 798216191906371107}
+  - component: {fileID: 5156635169608361961}
   m_Layer: 0
   m_Name: Chicken
   m_TagString: Chicken
@@ -181,7 +181,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &798216191906371107
+--- !u!114 &5156635169608361961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394a3fbfde2eb74faab5f15e903ee5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EggPrefab: {fileID: 2136365784386185126, guid: 5196935a8a04d4b43af3afb581b7b99c, type: 3}
-  score: 100
-  ChickenLegPrefab: {fileID: 5249791821574099443, guid: 323180325596f6446a1edebea2eeaec7, type: 3}
+  eggPool: {fileID: 0}
+  chickenLegPool: {fileID: 0}
+  chickenPool: {fileID: 0}
+  bulletPool: {fileID: 0}
+  scorePerChicken: 10

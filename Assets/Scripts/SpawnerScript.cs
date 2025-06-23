@@ -1,64 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnerScript : MonoBehaviour
 {
-    private float gridSize = 1;
-    private Vector3 SpawnPos;
-    private int CurrentChicken;
-    [SerializeField] private GameObject ChickenPrefab;
-    [SerializeField] private Transform GridChicken;
-    [SerializeField] private GameObject Boss;
-    public static SpawnerScript Instance;
+    [Header("Grid Settings")]
+    [SerializeField] float gridSize = 1f;
+    public Transform gridChicken;
 
-    private void Awake()
+    [Header("References")]
+    [SerializeField] GameManager gameManager;
+
+    public static SpawnerScript Instance { get; private set; }
+
+    void Awake()
     {
-        Instance = this;
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        float height = Camera.main.orthographicSize * 2;
-        float width = height * Screen.width / Screen.height;
-        SpawnPos = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
-        SpawnPos.x += ((gridSize / 2 + (width / 4)));
-        SpawnPos.y -= gridSize;
-        SpawnPos.z = 0;
-        SpawnChicken(Mathf.FloorToInt(height / 2 / gridSize), Mathf.FloorToInt(width / gridSize / 1.5f));
+        float h = Camera.main.orthographicSize * 2f;
+        float w = h * Screen.width / Screen.height;
+
+        Vector3 topLeft = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
+        Vector3 start = new(topLeft.x + gridSize * .5f + w * .25f,
+                              topLeft.y - gridSize,
+                              0);
+
+        int rows = Mathf.FloorToInt(h * .5f / gridSize);
+        int cols = Mathf.FloorToInt(w / (gridSize * 1.5f));
+
+        SpawnGrid(rows, cols, start);
     }
 
-    // Update is called once per frame
-    void Update()
+    void SpawnGrid(int rows, int cols, Vector3 anchor)
     {
-        
-    }
-
-    void SpawnChicken(int row, int numberChicken)
-    {
-        float x = SpawnPos.x;
-        for (int i = 0; i < row; i++)
+        for (int r = 0; r < rows; ++r)
         {
-            for(int j = 0; j < numberChicken; j++)
+            Vector3 rowPos = anchor - new Vector3(0, r * gridSize, 0);
+
+            for (int c = 0; c < cols; ++c)
             {
-                SpawnPos.x = SpawnPos.x + gridSize;
-                GameObject Chicken = Instantiate(ChickenPrefab, SpawnPos, Quaternion.identity);
-                Chicken.transform.parent = GridChicken;
-                CurrentChicken++;
-            }
-            SpawnPos.x = x;
-            SpawnPos.y -= gridSize;
-        }
-    }
+                Vector3 spawnPos = rowPos + new Vector3((c + 1) * gridSize, 0, 0);
 
-    public void DecreaseChicken()
-    {
-        CurrentChicken--;
-        if (CurrentChicken <= 0)
-        {
-            Boss.gameObject.SetActive(true);
+                gameManager.SpawnChicken(spawnPos);
+            }
         }
     }
 }

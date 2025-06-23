@@ -8,6 +8,7 @@ TagManager:
   - Egg
   - Chicken
   - ChickenLeg
+  - Boss
   layers:
   - Default
   - TransparentFX

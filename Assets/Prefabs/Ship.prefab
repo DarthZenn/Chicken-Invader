@@ -116,7 +116,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7458935032841616420}
   - component: {fileID: 6904680039024708129}
-  - component: {fileID: 5268126522400992434}
   - component: {fileID: 4816144305521211011}
   - component: {fileID: 4396072286468105370}
   - component: {fileID: 8139287289519675033}
@@ -195,30 +194,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5268126522400992434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6883017289744387150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce6322a94622e6e4991b51423c27ccf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 10
-  BulletList:
-  - {fileID: 8966491544814067714, guid: 425164a9a9871654f966b5deba10e739, type: 3}
-  - {fileID: 4524690557431913004, guid: b31a3ffd9e1e8f640901d3e421adf54b, type: 3}
-  - {fileID: 5711041199884749876, guid: 7a31b5f8c7bc89b4f8f9d3948198bad6, type: 3}
-  - {fileID: 3815667359231351075, guid: 620e2e6c8f6118849b9a9ced9d0e13dd, type: 3}
-  - {fileID: 876953323970470232, guid: 3982d3f551c8e9741b7490a4e357060d, type: 3}
-  - {fileID: 5699838442919948698, guid: 80bdd9d41e3053d40964b485fa60de11, type: 3}
-  CurrentTierBullet: 0
-  DieVFX: {fileID: 139366, guid: b185c1a9cf067374586d095111b15bd1, type: 3}
-  Shield: {fileID: 3637985614670880837}
-  ChickenLegScore: 200
 --- !u!60 &4816144305521211011
 PolygonCollider2D:
   m_ObjectHideFlags: 0

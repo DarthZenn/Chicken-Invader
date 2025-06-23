@@ -1,29 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-    [SerializeField] private float Speed;
+    [SerializeField] private int bulletdamage;
 
-    // Start is called before the first frame update
-    void Start()
+    GameManager gm;
+
+    void Awake() => gm = FindObjectOfType<GameManager>();
+
+    void OnTriggerEnter2D(Collider2D other)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(Vector3.up * Time.deltaTime * Speed);
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.name == "Boss")
+        if (other.CompareTag("Chicken"))
         {
-            BossScript.instance.Damage(10);
-            Destroy(gameObject);
+            gm.KillChicken(other.gameObject, gameObject);
+        }
+        else if (other.CompareTag("Boss"))
+        {
+            gm.DamageBoss(bulletdamage);
+            gm.RecycleBullet(gameObject);
         }
     }
 }

@@ -1,48 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class ChickenScript : MonoBehaviour
 {
-    [SerializeField] private GameObject EggPrefab;
-    [SerializeField] private int score;
-    [SerializeField] private GameObject ChickenLegPrefab;
-
-    private void Awake()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        StartCoroutine(SpawnEgg());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    IEnumerator SpawnEgg()
-    {
-        while (true)
+        if (other.CompareTag("Bullet"))
         {
-            yield return new WaitForSeconds(Random.Range(4, 20));
-
-            Instantiate(EggPrefab, transform.position, Quaternion.identity);
+            FindObjectOfType<GameManager>().KillChicken(gameObject, other.gameObject);
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("Bullet"))
-        {
-            ScoreController.instance.GetScore(score);
-            Instantiate(ChickenLegPrefab, transform.position, Quaternion.identity);
-
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnDestroy()
-    {
-        SpawnerScript.Instance.DecreaseChicken();
     }
 }
