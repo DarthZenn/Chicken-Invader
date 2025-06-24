@@ -33,10 +33,11 @@ public class GameManager : MonoBehaviour
     public AudioClip chickenDeathClip;
     public AudioSource sfxSource;
 
-    [Header("Pause")]
+    [Header("UI")]
     public GameObject pauseMenu;
-
     bool isPaused = false;
+    public GameObject gameOverScreen;
+    public TMPro.TextMeshProUGUI gameOverText;
 
 
     int shipCurrentHealth;
@@ -311,8 +312,9 @@ public class GameManager : MonoBehaviour
         GameObject fx = vfxPool.GetObject();
         fx.transform.position = boss.transform.position;
         StartCoroutine(ReturnToPoolAfterTime(fx, vfxPool, 1));
-    }
 
+        ShowGameOver("w");
+    }
 
     IEnumerator DisableShield()
     {
@@ -340,8 +342,9 @@ public class GameManager : MonoBehaviour
         fx.transform.position = ship.position;
         StartCoroutine(ReturnToPoolAfterTime(fx, vfxPool, 1));
         ship.gameObject.SetActive(false);
-    }
 
+        ShowGameOver("l");
+    }
 
     IEnumerator ReturnToPoolAfterTime(GameObject obj, ObjectPool pool, float t)
     {
@@ -362,6 +365,34 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(0);
+    }
+
+    void ShowGameOver(string result)
+    {
+        Time.timeScale = 0;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        if (result == "w")
+        {
+            gameOverText.text = "<b>YOU WIN!</b>";
+            gameOverText.color = Color.green;
+        }
+        else
+        {
+            gameOverText.text = "<b>YOU LOSE!</b>";
+            gameOverText.color = Color.red;
+        }
+
+        gameOverScreen.SetActive(true);
+    }
+
+
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
 
 }
