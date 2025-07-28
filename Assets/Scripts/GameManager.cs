@@ -387,12 +387,9 @@ public class GameManager : MonoBehaviour
         gameOverScreen.SetActive(true);
     }
 
-
-
     public void Restart()
     {
         Time.timeScale = 1;
         UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
     }
-
 }
